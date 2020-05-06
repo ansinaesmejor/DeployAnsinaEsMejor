@@ -1,6 +1,9 @@
 https://ansinaesmejor.com/web/database/selector
+
 systemctl list-unit-files --all
+
 sudo systemctl restart odoo13
+
 sudo systemctl status odoo13
 
 
