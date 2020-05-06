@@ -1,4 +1,17 @@
 # odoodeploy
+sudo apt-get install python3-pypdf2
+sudo apt-get install python3-passlib
+sudo apt-get install python3-babel
+sudo apt-get install python3-werkzeug
+sudo apt-get install python3-lxml
+sudo apt-get install python3-decorator
+sudo apt-get install python3-polib
+sudo apt-get install python3-PIL
+sudo apt-get install python3-pil
+sudo apt-get install python3-psycopg2
+sudo apt-get install python3-dateutil
+sudo apt-get install python3-psutil
+sudo apt-get install python3-jinja2
 
 (Copyright 2019 - OdooERPCloud)
 
