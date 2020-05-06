@@ -12,6 +12,8 @@ sudo apt-get install python3-psycopg2
 sudo apt-get install python3-dateutil
 sudo apt-get install python3-psutil
 sudo apt-get install python3-jinja2
+sudo apt-get install python3-reportlab
+sudo apt-get install python3-gevent
 
 (Copyright 2019 - OdooERPCloud)
 
