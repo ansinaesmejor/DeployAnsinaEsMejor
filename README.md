@@ -3,6 +3,7 @@ systemctl list-unit-files --all
 sudo systemctl restart odoo13
 sudo systemctl status odoo13
 
+
 # DeployAnsinaEsMejor
 # worker_analizer.sh
 
