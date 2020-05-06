@@ -6,6 +6,10 @@ sudo systemctl restart odoo13
 
 sudo systemctl status odoo13
 
+mkdir DeployAnsinaEsMejor
+
+sudo git clone --depth 1 https://github.com/ansinaesmejor/DeployAnsinaEsMejor.git DeployAnsinaEsMejor
+
 
 # DeployAnsinaEsMejor
 # worker_analizer.sh
