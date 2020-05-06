@@ -38,7 +38,7 @@ sudo adduser $usuario sudo
 # add universe repository & update (Fix error download libraries)
 sudo add-apt-repository universe
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get -y upgrade
 sudo apt-get install -y git bc
 # Update and install Postgresql
 sudo apt-get install postgresql -y
