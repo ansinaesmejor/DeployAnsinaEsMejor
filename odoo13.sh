@@ -162,8 +162,6 @@ addons_path =
 xmlrpc_port = $PORT
 ;dbfilter = odoo13
 logrotate = True
-limit_time_real = $conflimit_time_real
-limit_time_cpu = $conflimit_time_cpu
 
 workers = $confworkers
 limit_memory_hard = $conflimit_memory_hard
@@ -208,12 +206,6 @@ sudo chown -R $usuario: /opt/config
 #
 #
 
-echo "************************************************"
-echo "**********Actualizando repositorios...**********"
-echo "************************************************"
-echo "************************************************"
-sudo apt-get update
-
 echo "*************** instalar configurar certificados **********************"
 
 sudo apt-get -y install software-properties-common
@@ -223,17 +215,11 @@ sudo apt-get -y install certbot
 certbot certonly --standalone -d $domain,www.$domain -m $email --agree-tos -n
 
 
-echo "************************************************"
 echo "**********Instalando Nginx... ******************"
-echo "************************************************"
-echo "************************************************"
 sudo service nginx stop
 sudo apt-get install -y nginx
 
-echo "************************************************"
 echo "**********Configurando Nginx... ****************"
-echo "************************************************"
-echo "************************************************"
 
 #sudo rm /etc/nginx/sites-enabled/default
 sudo rm /etc/nginx/sites-available/$domain
@@ -252,9 +238,9 @@ upstream odoo {
     server 127.0.0.1:$PORT;
 }
 #### Activar esto cuando se use workers unicamente ######
-#upstream openerp-im {
-#    server 127.0.0.1:8072 weight=1 fail_timeout=0;
-#}
+upstream openerp-im {
+    server 127.0.0.1:8072 weight=1 fail_timeout=0;
+}
 
 server {
     listen 443 default;
@@ -298,9 +284,9 @@ server {
         proxy_pass http://odoo;
     }
     #### Activar esto cuando se use workers unicamente ######
-    #    location /longpolling/ {
-    #		proxy_pass http://127.0.0.1:8072;
-    #}
+    location /longpolling/ {
+    	proxy_pass http://127.0.0.1:8072;
+    }
     gzip_types text/css text/less text/plain text/xml application/xml application/json application/javascript;
     gzip on;
     gzip_min_length 1000;
@@ -316,16 +302,10 @@ server {
     return 301 https://\$host\$request_uri;
 }" > /etc/nginx/sites-available/$domain
 
-echo "***************************************************"
 echo "**********Comprobando configuracion...*************"
-echo "***************************************************"
-echo "***************************************************"
 sudo nginx -t
 
-echo "***************************************************"
 echo "**********Reiniciando servicios...*****************"
-echo "***************************************************"
-echo "***************************************************"
 
 # sudo /etc/init.d/odoo-server restart
 
