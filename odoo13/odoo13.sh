@@ -53,7 +53,7 @@ sudo apt-get -y install gcc python3-dev libxml2-dev libxslt1-dev \
  libevent-dev libsasl2-dev libldap2-dev libpq-dev \
  libpng-dev libjpeg-dev
  
-sudo apt-get install python3-pypdf2 python3-passlib python3-babel \
+sudo apt-get -y install python3-pypdf2 python3-passlib python3-babel \
  python3-werkzeug python3-lxml python3-decorator python3-polib \
  python3-PIL python3-pil python3-psycopg2 python3-dateutil \
  python3-psutil python3-jinja2 python3-reportlab python3-gevent
