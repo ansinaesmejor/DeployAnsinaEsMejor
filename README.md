@@ -1,3 +1,5 @@
+https://ansinaesmejor.com/web/database/selector
+
 # DeployAnsinaEsMejor
 # worker_analizer.sh
 
