@@ -1,4 +1,18 @@
+# DeployAnsinaEsMejor
+
+sudo git clone --depth 1 https://github.com/ansinaesmejor/DeployAnsinaEsMejor.git DeployAnsinaEsMejor
+
+cd DeployAnsinaEsMejor
+
+sudo chmod +x odoo13.sh
+
+sudo ./odoo13.sh
+
+# Links
+
 https://ansinaesmejor.com/web/database/selector
+
+# Diagnostico
 
 systemctl list-unit-files --all
 
@@ -6,64 +20,87 @@ sudo systemctl restart odoo13
 
 sudo systemctl status odoo13
 
-sudo apt-get install -y bc
 
-mkdir DeployAnsinaEsMejor
+# odoodeploy
 
-sudo git clone --depth 1 https://github.com/ansinaesmejor/DeployAnsinaEsMejor.git DeployAnsinaEsMejor
+(Copyright 2019 - OdooERPCloud)
 
-sudo chmod +x worker_analizer.sh
+https://www.odooerpcloud.com
 
-sudo ./worker_analizer.sh
+Odoo Deploy Tools
 
-sudo chmod +x odoo13.sh
+## odoo.service
 
-sudo ./odoo13.sh
+This file is used from odooxx.sh for to install Odoo Start Service
 
+## odooxx.sh
+This script install Odoo in Your Server
 
+## Requirements
 
-# DeployAnsinaEsMejor
-# worker_analizer.sh
+* Tested on Ubuntu Server / Desktop 16.04LTS Or 18.04.LTS
+* This script should works on Debian Also (no tested).
 
-  GNU nano 4.8                                                                                         /opt/config/odoo13.conf                                                                                          Modified  
+## Enviroments
 
+* Ubuntu Desktop 18.04 LTS (Local PC)
+* Ubuntu Server 18.04 LTS (VPS)
 
-[options]
-; This is the password that allows database operations:
-;admin_passwd =
-db_host = False
-db_port = False
-;db_user =
-;db_password =
-data_dir = /opt/odoosrc/data
-logfile= /opt/odoosrc/log/odoo13-server.log
+    * OVH
+    * Google Cloud
+    * Amazon AWS
+    * Digital Ocean
 
-############# addons path ######################################
+## How to install
 
-addons_path =
-    /opt/odoosrc/13.0/extra-addons,
-    /opt/odoosrc/13.0/odoo/addons
+### Ubuntu Desktop
 
-#################################################################
+1. Copy this Folder in your System (Desktop, Downloads, etc.)
+2. Go to Directory and open a terminal
+3. chmod +x  *.sh
+4. Execute: ./odooxx.sh
+5. Enjoy
 
-xmlrpc_port = 3369
-;dbfilter = odoo13
-logrotate = True
-;limit_time_real = 1000
-;limit_time_cpu = 1000
+### Ubuntu Server (VPS)
 
-workers = 9
-limit_memory_hard = 742084881
-limit_memory_soft = 593667904
-limit_request = 8192
-limit_time_cpu = 60
-limit_time_real = 120
-max_cron_threads = 1
+1. Copy this Folder in your User Home Directory using Filezilla or WinSCP OR SCP command)
+2. Go to this Folder by terminal
+3. chmod +x  *.sh
+4. Execute: ./odooxx.sh
+5. Enjoy
 
+### Odoo Service Manager
 
-
-
-
+* sudo systemctl status odooxx (shows state Odoo service)
+* sudo systemctl start odooxx (start service)
+* sudo systemctl stop odooxx (stop service)
+* sudo systemctl restart odooxx (restart service)
+* sudo tail -f /opt/deploy/log/ (Shows Live Odoo Log)
 
 
+### Source Odoo location
 
+* /opt/odoosrc (All Source)
+* /opt/odoosrc/extra-addons (Extra Addons)
+* /opt/odoosrc/extra-addons/oca (Put here your OCA Extra Addons)
+* /opt/odoosrc/data (Filestore)
+* /opt/odoosrc/log/ (Log file)
+
+
+
+Script Odoo + Nginx + SSL
+=========================
+
+# Requirements: Ubuntu >= 16.04
+
+Copy all files in any directory (server, vps, PC)
+
+1 Your domain must be mapping to IP Server before to install this Script (DNS)
+
+Example: mydomain.com > 54.168.45.45 (Your VPS / Server IP) 
+
+2 Check as execute program
+
+3 Run this script as root user
+
+4 Enter a valid domain and email
