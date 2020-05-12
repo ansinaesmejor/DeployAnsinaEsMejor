@@ -1,6 +1,6 @@
 # DeployAnsinaEsMejor
 
-sudo apt-get install git
+sudo apt-get - y install git
 
 sudo git clone -b 13.0 --depth 1 https://github.com/ansinaesmejor/DeployAnsinaEsMejor.git DeployAnsinaEsMejor
 
