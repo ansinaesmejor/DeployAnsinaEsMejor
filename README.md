@@ -14,6 +14,10 @@ sudo ./odoo13.sh
 
 https://ansinaesmejor.com/web/database/selector
 
+# Clonar repositorios
+
+sudo git clone https://github.com/OCA/pos.git -b 13.0 --depth -1 /opt/odoosrc/13.0/extra-addons
+
 # Diagnostico
 
 systemctl list-unit-files --all
