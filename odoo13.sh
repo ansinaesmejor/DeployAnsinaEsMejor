@@ -178,6 +178,11 @@ addons_path =
     $PATHREPOS/social,
     $PATHREPOS/web,
     $PATHREPOS/website,
+    $PATHREPOS/product-attribute,
+    $PATHREPOS/stock-logistics-warehouse,
+    $PATHREPOS/account-financial-tools,
+    $PATHREPOS/stock-logistics-barcode,
+    $PATHREPOS/server-brand,
     $PATHBASE/$VERSION/odoo/addons
 
 #################################################################
@@ -201,6 +206,11 @@ sudo git clone https://github.com/OCA/social.git -b $VERSION --depth $DEPTH $PAT
 sudo git clone https://github.com/OCA/pos.git -b $VERSION --depth $DEPTH $PATHREPOS/pos
 sudo git clone https://github.com/OCA/website.git -b $VERSION --depth $DEPTH $PATHREPOS/website
 sudo git clone https://github.com/OCA/server-tools.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
+sudo git clone https://github.com/OCA/product-attribute.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
+sudo git clone https://github.com/OCA/account-financial-tools.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
+sudo git clone https://github.com/OCA/stock-logistics-barcode.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
+sudo git clone https://github.com/OCA/server-brand.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
+sudo git clone https://github.com/OCA/stock-logistics-warehouse.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
 
 sudo systemctl start odoo$VCODE
 
@@ -308,15 +318,6 @@ server {
     listen	80;
     server_name www.$domain $domain;
     listen [::]:80 ipv6only=on;
-
-    add_header Strict-Transport-Security max-age=2592000;
-    return 301 https://\$host\$request_uri;
-}
-
-server {
-    listen	3369;
-    server_name www.$domain $domain;
-    listen [::]:3369 ipv6only=on;
 
     add_header Strict-Transport-Security max-age=2592000;
     return 301 https://\$host\$request_uri;
