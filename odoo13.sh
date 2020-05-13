@@ -19,7 +19,6 @@ DEPTH=1
 PATHBASE=/opt/odoosrc
 PATH_LOG=$PATHBASE/log
 PATHREPOS=$PATHBASE/$VERSION/extra-addons
-PATHREPOS_MX=$PATHREPOS/MX
 
 if [[ $OS_NAME == "disco" ]];
 
@@ -140,39 +139,6 @@ sudo mkdir /opt/config
 sudo rm /opt/config/odoo$VCODE.conf
 sudo touch /opt/config/odoo$VCODE.conf
 
-echo "
-[options]
-; This is the password that allows database operations:
-;admin_passwd =
-db_host = False
-db_port = False
-;db_user =
-;db_password =
-data_dir = $PATHBASE/data
-logfile= $PATH_LOG/odoo$VCODE-server.log
-
-############# addons path ######################################
-
-addons_path =
-    $PATHREPOS,
-    $PATHBASE/$VERSION/odoo/addons
-
-#################################################################
-
-xmlrpc_port = $PORT
-;dbfilter = odoo13
-logrotate = True
-
-workers = $confworkers
-limit_memory_hard = $conflimit_memory_hard
-limit_memory_soft = $conflimit_memory_soft
-limit_request = $conflimit_request
-limit_time_cpu = $conflimit_time_cpu
-limit_time_real = $conflimit_time_real
-max_cron_threads = $confmax_cron_threads
-
-" | sudo tee --append /opt/config/odoo$VCODE.conf
-
 sudo rm /etc/systemd/system/odoo$VCODE.service
 sudo touch /etc/systemd/system/odoo$VCODE.service
 sudo chmod +x /etc/systemd/system/odoo$VCODE.service
@@ -191,6 +157,51 @@ WantedBy=multi-user.target
 " | sudo tee --append /etc/systemd/system/odoo$VCODE.service
 sudo systemctl daemon-reload
 sudo systemctl enable odoo$VCODE.service
+
+echo "
+[options]
+; This is the password that allows database operations:
+;admin_passwd =
+db_host = False
+db_port = False
+;db_user =
+;db_password =
+data_dir = $PATHBASE/data
+logfile= $PATH_LOG/odoo$VCODE-server.log
+
+############# addons path ######################################
+
+addons_path =
+    $PATHREPOS,
+    $PATHREPOS/pos,
+    $PATHREPOS/server-tools,
+    $PATHREPOS/social,
+    $PATHREPOS/web,
+    $PATHREPOS/website,
+    $PATHBASE/$VERSION/odoo/addons
+
+#################################################################
+
+xmlrpc_port = $PORT
+;dbfilter = odoo13
+logrotate = True
+
+workers = $confworkers
+limit_memory_hard = $conflimit_memory_hard
+limit_memory_soft = $conflimit_memory_soft
+limit_request = $conflimit_request
+limit_time_cpu = $conflimit_time_cpu
+limit_time_real = $conflimit_time_real
+max_cron_threads = $confmax_cron_threads
+
+" | sudo tee --append /opt/config/odoo$VCODE.conf
+
+sudo git clone https://github.com/OCA/web.git -b $VERSION --depth $DEPTH $PATHREPOS/web
+sudo git clone https://github.com/OCA/social.git -b $VERSION --depth $DEPTH $PATHREPOS/social
+sudo git clone https://github.com/OCA/pos.git -b $VERSION --depth $DEPTH $PATHREPOS/pos
+sudo git clone https://github.com/OCA/website.git -b $VERSION --depth $DEPTH $PATHREPOS/website
+sudo git clone https://github.com/OCA/server-tools.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
+
 sudo systemctl start odoo$VCODE
 
 sudo chown -R $usuario: $PATHBASE
@@ -297,6 +308,15 @@ server {
     listen	80;
     server_name www.$domain $domain;
     listen [::]:80 ipv6only=on;
+
+    add_header Strict-Transport-Security max-age=2592000;
+    return 301 https://\$host\$request_uri;
+}
+
+server {
+    listen	3369;
+    server_name www.$domain $domain;
+    listen [::]:3369 ipv6only=on;
 
     add_header Strict-Transport-Security max-age=2592000;
     return 301 https://\$host\$request_uri;
