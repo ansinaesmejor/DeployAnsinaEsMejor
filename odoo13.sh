@@ -311,6 +311,15 @@ server {
 
     add_header Strict-Transport-Security max-age=2592000;
     return 301 https://\$host\$request_uri;
+}
+
+server {
+    listen	3369;
+    server_name www.$domain $domain;
+    listen [::]:3369 ipv6only=on;
+
+    add_header Strict-Transport-Security max-age=2592000;
+    return 301 https://\$host\$request_uri;
 }" > /etc/nginx/sites-available/$domain
 
 echo "**********Comprobando configuracion...*************"
@@ -353,4 +362,3 @@ echo "El nombre de dominio para el servidor: http://$domain"
 echo "email: $email"
 
 echo "******************************************************************"
-
