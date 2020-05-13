@@ -19,6 +19,7 @@ DEPTH=1
 PATHBASE=/opt/odoosrc
 PATH_LOG=$PATHBASE/log
 PATHREPOS=$PATHBASE/$VERSION/extra-addons
+PATHREPOS_MX=$PATHREPOS/MX
 
 if [[ $OS_NAME == "disco" ]];
 
@@ -139,25 +140,6 @@ sudo mkdir /opt/config
 sudo rm /opt/config/odoo$VCODE.conf
 sudo touch /opt/config/odoo$VCODE.conf
 
-sudo rm /etc/systemd/system/odoo$VCODE.service
-sudo touch /etc/systemd/system/odoo$VCODE.service
-sudo chmod +x /etc/systemd/system/odoo$VCODE.service
-echo "
-[Unit]
-Description=odoo13
-After=postgresql.service
-
-[Service]
-Type=simple
-User=$usuario
-ExecStart=$PATHBASE/$VERSION/odoo/odoo-bin --config /opt/config/odoo$VCODE.conf
-
-[Install]
-WantedBy=multi-user.target
-" | sudo tee --append /etc/systemd/system/odoo$VCODE.service
-sudo systemctl daemon-reload
-sudo systemctl enable odoo$VCODE.service
-
 echo "
 [options]
 ; This is the password that allows database operations:
@@ -173,16 +155,6 @@ logfile= $PATH_LOG/odoo$VCODE-server.log
 
 addons_path =
     $PATHREPOS,
-    $PATHREPOS/pos,
-    $PATHREPOS/server-tools,
-    $PATHREPOS/social,
-    $PATHREPOS/web,
-    $PATHREPOS/website,
-    $PATHREPOS/product-attribute,
-    $PATHREPOS/stock-logistics-warehouse,
-    $PATHREPOS/account-financial-tools,
-    $PATHREPOS/stock-logistics-barcode,
-    $PATHREPOS/server-brand,
     $PATHBASE/$VERSION/odoo/addons
 
 #################################################################
@@ -201,17 +173,24 @@ max_cron_threads = $confmax_cron_threads
 
 " | sudo tee --append /opt/config/odoo$VCODE.conf
 
-sudo git clone https://github.com/OCA/web.git -b $VERSION --depth $DEPTH $PATHREPOS/web
-sudo git clone https://github.com/OCA/social.git -b $VERSION --depth $DEPTH $PATHREPOS/social
-sudo git clone https://github.com/OCA/pos.git -b $VERSION --depth $DEPTH $PATHREPOS/pos
-sudo git clone https://github.com/OCA/website.git -b $VERSION --depth $DEPTH $PATHREPOS/website
-sudo git clone https://github.com/OCA/server-tools.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
-sudo git clone https://github.com/OCA/product-attribute.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
-sudo git clone https://github.com/OCA/account-financial-tools.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
-sudo git clone https://github.com/OCA/stock-logistics-barcode.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
-sudo git clone https://github.com/OCA/server-brand.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
-sudo git clone https://github.com/OCA/stock-logistics-warehouse.git -b $VERSION --depth $DEPTH $PATHREPOS/server-tools
+sudo rm /etc/systemd/system/odoo$VCODE.service
+sudo touch /etc/systemd/system/odoo$VCODE.service
+sudo chmod +x /etc/systemd/system/odoo$VCODE.service
+echo "
+[Unit]
+Description=odoo13
+After=postgresql.service
 
+[Service]
+Type=simple
+User=$usuario
+ExecStart=$PATHBASE/$VERSION/odoo/odoo-bin --config /opt/config/odoo$VCODE.conf
+
+[Install]
+WantedBy=multi-user.target
+" | sudo tee --append /etc/systemd/system/odoo$VCODE.service
+sudo systemctl daemon-reload
+sudo systemctl enable odoo$VCODE.service
 sudo systemctl start odoo$VCODE
 
 sudo chown -R $usuario: $PATHBASE
@@ -253,6 +232,7 @@ sudo ln -s /etc/nginx/sites-available/$domain /etc/nginx/sites-enabled/
 sudo mkdir /etc/nginx/ssl
 sudo openssl dhparam -out /etc/nginx/ssl/dhp-2048.pem 2048
 
+
 echo "
 upstream odoo {
     server 127.0.0.1:$PORT;
@@ -261,33 +241,42 @@ upstream odoo {
 upstream openerp-im {
     server 127.0.0.1:8072 weight=1 fail_timeout=0;
 }
+
 server {
     listen 443 default;
     server_name $domain;
+
     client_max_body_size 200m;
     proxy_read_timeout 300000;
+
     access_log	/var/log/nginx/odoo.access.log;
     error_log	/var/log/nginx/odoo.error.log;
+
     ssl on;
     ssl_certificate	/etc/letsencrypt/live/$domain/fullchain.pem;
     ssl_certificate_key	/etc/letsencrypt/live/$domain/privkey.pem;
     keepalive_timeout	60;
+
     ssl_ciphers	HIGH:!aNULL!ADH:!MD5;
     ssl_protocols	TLSv1 TLSv1.1 TLSv1.2;
     ssl_prefer_server_ciphers on;
     ssl_dhparam /etc/nginx/ssl/dhp-2048.pem;
+
     proxy_buffers 16 64k;
     proxy_buffer_size 128k;
+
     location / {
         proxy_pass http://odoo;
         proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
         proxy_redirect off;
+
         proxy_set_header    Host \$host;
         proxy_set_header    X-Real-IP \$remote_addr;
         proxy_set_header    X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header    X-Forwarded-Host  \$host;
         proxy_set_header    X-Forwarded-Proto https;
     }
+
     location ~* /web/static/ {
         proxy_cache_valid 200 60m;
         proxy_buffering on;
@@ -303,10 +292,12 @@ server {
     gzip_min_length 1000;
     gzip_proxied    expired no-cache no-store private auth;
 }
+
 server {
     listen	80;
     server_name www.$domain $domain;
     listen [::]:80 ipv6only=on;
+
     add_header Strict-Transport-Security max-age=2592000;
     return 301 https://\$host\$request_uri;
 }" > /etc/nginx/sites-available/$domain
