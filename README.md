@@ -40,6 +40,8 @@ cd /opt/odoosrc/13.0/extra-addons/
 
 sudo git clone https://github.com/itadmin01/ansinaesmejor.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/ansinaesmejor
 
+sudo pip3 install conekta
+
 sudo pip3 install xmltodict
 
 sudo apt-get install python3-openssl
