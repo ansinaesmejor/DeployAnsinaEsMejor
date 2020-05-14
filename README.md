@@ -39,8 +39,10 @@ ssh -T git@github.com
 cd /opt/odoosrc/13.0/extra-addons/
 
 sudo git clone https://github.com/itadmin01/ansinaesmejor.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/ansinaesmejor
-	sudo pip3 install xmltodict
-	sudo apt-get install python3-openssl
+
+sudo pip3 install xmltodict
+
+sudo apt-get install python3-openssl
 
 sudo git clone https://github.com/itadmin01/Odoo_CFDI_3.3.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/Odoo_CFDI_3.3
 
