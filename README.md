@@ -17,24 +17,38 @@ https://ansinaesmejor.com/web/database/selector
 # GitHub SSH
 
 ls -al ~/.ssh
+
 ssh-keygen -t rsa -b 4096 -C "ansinaesmejor@gmail.com"
+
 eval "$(ssh-agent -s)"
+
 ssh-add ~/.ssh/id_rsa
+
 sudo apt-get install xclip
+
 cd ~/.ssh
+
 xclip -sel clip < ~/. id_rsa.pub
+
 ssh -T git@github.com
+
 
 # Clonar de GitHub repositorios
 
+
 cd /opt/odoosrc/13.0/extra-addons/
+
 sudo git clone https://github.com/itadmin01/ansinaesmejor.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/ansinaesmejor
 	sudo pip3 install xmltodict
 	sudo apt-get install python3-openssl
+
 sudo git clone https://github.com/itadmin01/Odoo_CFDI_3.3.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/Odoo_CFDI_3.3
+
 sudo git clone https://github.com/odoomates/odooapps.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/odooapps
 
+
 nano /opt/config/odoo13.conf
+
 
 # Diagnostico
 
