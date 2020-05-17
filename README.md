@@ -1,3 +1,29 @@
+# Clonar de GitHub repositorios
+
+cd /opt/odoosrc/13.0/extra-addons/
+
+sudo git clone https://github.com/itadmin01/ansinaesmejor.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/ansinaesmejor
+
+sudo pip3 install conekta
+
+sudo pip3 install xmltodict
+
+sudo apt-get install python3-openssl
+
+sudo git clone https://github.com/itadmin01/Odoo_CFDI_3.3.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/Odoo_CFDI_3.3
+
+sudo git clone https://github.com/odoomates/odooapps.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/odooapps
+
+nano /opt/config/odoo13.conf
+
+# Diagnostico
+
+sudo systemctl restart odoo13
+
+sudo systemctl status odoo13
+
+systemctl list-unit-files --all
+
 # DeployAnsinaEsMejor
 
 sudo apt-get -y install git
@@ -31,37 +57,6 @@ cd ~/.ssh
 xclip -sel clip < ~/. id_rsa.pub
 
 ssh -T git@github.com
-
-
-# Clonar de GitHub repositorios
-
-
-cd /opt/odoosrc/13.0/extra-addons/
-
-sudo git clone https://github.com/itadmin01/ansinaesmejor.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/ansinaesmejor
-
-sudo pip3 install conekta
-
-sudo pip3 install xmltodict
-
-sudo apt-get install python3-openssl
-
-sudo git clone https://github.com/itadmin01/Odoo_CFDI_3.3.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/Odoo_CFDI_3.3
-
-sudo git clone https://github.com/odoomates/odooapps.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/odooapps
-
-
-nano /opt/config/odoo13.conf
-
-
-# Diagnostico
-
-systemctl list-unit-files --all
-
-sudo systemctl restart odoo13
-
-sudo systemctl status odoo13
-
 
 # odoodeploy
 
