@@ -155,6 +155,19 @@ logfile= $PATH_LOG/odoo$VCODE-server.log
 
 addons_path =
     $PATHREPOS,
+    $PATHREPOS/ansinaesmejor,
+    $PATHREPOS/Odoo_CFDI_3.3,
+    $PATHREPOS/server-tools,
+    $PATHREPOS/web,
+    $PATHREPOS/social,
+    $PATHREPOS/website,
+    $PATHREPOS/server-brand,
+    $PATHREPOS/product-attribute,
+    $PATHREPOS/stock-logistics-warehouse,
+    $PATHREPOS/account-financial-tools,
+    $PATHREPOS/partner-contact,
+    $PATHREPOS/stock-logistics-barcode,
+    $PATHREPOS/knowledge,
     $PATHBASE/$VERSION/odoo/addons
 
 #################################################################
@@ -342,3 +355,17 @@ echo "El nombre de dominio para el servidor: http://$domain"
 echo "email: $email"
 
 echo "******************************************************************"
+
+sudo git clone https://github.com/ansinaesmejor/ansinaesmejor.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/ansinaesmejor
+sudo git clone https://github.com/ansinaesmejor/Odoo_CFDI_3.3.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/Odoo_CFDI_3.3
+sudo git clone https://github.com/ansinaesmejor/server-tools.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/server-tools
+sudo git clone https://github.com/ansinaesmejor/web.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/web
+sudo git clone https://github.com/ansinaesmejor/social.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/social
+sudo git clone https://github.com/ansinaesmejor/website.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/website
+sudo git clone https://github.com/ansinaesmejor/server-brand.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/server-brand
+sudo git clone https://github.com/ansinaesmejor/product-attribute.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/product-attribute
+sudo git clone https://github.com/ansinaesmejor/stock-logistics-warehouse.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/stock-logistics-warehouse
+sudo git clone https://github.com/ansinaesmejor/account-financial-tools.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/account-financial-tools
+sudo git clone https://github.com/ansinaesmejor/partner-contact.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/partner-contact
+sudo git clone https://github.com/ansinaesmejor/stock-logistics-barcode.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/stock-logistics-barcode
+sudo git clone https://github.com/ansinaesmejor/knowledge.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/knowledge
