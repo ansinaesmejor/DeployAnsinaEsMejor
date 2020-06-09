@@ -155,6 +155,7 @@ logfile= $PATH_LOG/odoo$VCODE-server.log
 
 addons_path =
     $PATHREPOS,
+    $PATHREPOS/odooapps,
     $PATHREPOS/ansinaesmejor,
     $PATHREPOS/Odoo_CFDI_3.3,
     $PATHREPOS/server-tools,
@@ -357,6 +358,7 @@ echo "email: $email"
 echo "******************************************************************"
 
 # sudo git clone https://github.com/ansinaesmejor/ansinaesmejor.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/ansinaesmejor
+sudo git clone https://github.com/ansinaesmejor/odooapps.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/odooapps
 sudo git clone https://github.com/ansinaesmejor/Odoo_CFDI_3.3.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/Odoo_CFDI_3.3
 sudo git clone https://github.com/ansinaesmejor/server-tools.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/server-tools
 sudo git clone https://github.com/ansinaesmejor/web.git -b 13.0 --depth 1 /opt/odoosrc/13.0/extra-addons/web
